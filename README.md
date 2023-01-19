@@ -4,6 +4,14 @@ my projects from ap computer science a !
 includes:
 
 project space needle
+
+
 project drawing panel
+
+
 project mirror
+
+
 project birthday
+
+
