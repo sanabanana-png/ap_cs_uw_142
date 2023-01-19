@@ -1,0 +1,86 @@
+import java.util.*; // to use Scanner
+public class Birthday {
+
+    public static void main(String args[]) {
+        Scanner console = new Scanner(System.in); //"spawning" in the scanner
+        intro();
+
+        System.out.println("Please enter today's date:");
+        System.out.println("What is the month (1-12)?");
+
+        int userInputTodayMonth = console.nextInt(); //prompting the user first time
+        whichMonth(userInputTodayMonth);
+        int userInputTodayDay= console.nextInt(); //prompting the user second time
+
+        int todayDate = getDayOfYear(userInputTodayMonth, userInputTodayDay); //getting the final day for easier use later
+        System.out.println(userInputTodayMonth + "/" + userInputTodayDay + " is day #" + todayDate + " of 365."); //putting it in through the method, and making it do the calculations !!
+        System.out.println();
+
+        System.out.println("Please enter your birthday:");
+        System.out.println("What is the month (1-12)?");
+
+        int userInputBdayMonth = console.nextInt(); //prompting the user third time
+        whichMonth(userInputBdayMonth);
+        int userInputBdayDay= console.nextInt(); //prompting the user fourth time
+
+        int bdayDate = getDayOfYear(userInputBdayMonth, userInputBdayDay); //getting the final day AGAIN
+        System.out.println(userInputBdayMonth + "/" + userInputBdayDay + " is day #" + bdayDate + " of 365.");
+        System.out.println();
+
+        int result = bdayDate - todayDate; //getting the final day count...
+        wrapAround(result); //..and putting it into the "wrap around year" checker
+
+        System.out.println("Your next birthday is in " + result + " days."); //yay ((:
+        System.out.println();
+
+        funFact(); //my birthday is 11/15!
+
+    }
+
+    //the intro text
+    public static void intro() {
+        System.out.print("This program tells you how many days");
+        System.out.print("it will be until your next birthday.");
+        System.out.println();
+    }
+
+    //calculates whether the day "wraps around", or if the birthday happens the proceeding year
+    public static int wrapAround(int dayDiff) {
+        if (dayDiff < 0) { //if statement to account for the next year beeswax
+            dayDiff += 365; // for example, if bdayDate is 20 and today date is 120, result will be a negative integer. So, adding 365 will quite literally, even it out so that the final result will be accurate!
+        }
+        return dayDiff;
+    }
+
+    //program that puts out the appropiate question for days- wether a month has 31 days, 30 days, or 28 days!
+    public static int whichMonth(int month) {
+        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) { // using || because it means or and i dont have to use too many if statements this way
+            System.out.println("What is the day (1-31)?");
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+            System.out.println("What is the day (1-30)?");
+        } else if (month == 2) {
+            System.out.println("What is the day (1-28)?");
+        }
+
+        return month;
+    }
+
+    //program to get the day of the year, since it's in two major parts of the program
+    public static int getDayOfYear(int month, int day) { //month and day will be used for if/else statements wooooo
+        int[] allMonths = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //array with all month's days! (0 is there for easy calculations)
+        int cumSum = 0;
+        for (int i = 0; i < month; i++) { //making a loop to calculate the cumulative sum (cumSum plz it's not erotic)
+            cumSum += allMonths[i];
+        }
+        int cumDate = cumSum + day;
+        return cumDate;
+    }
+
+    //prints the fun fact!
+    public static void funFact() {
+        System.out.println("Did you know? On 11/15/2001, Microsoft released the first-ever XBox, ");
+        System.out.println("selling 1.5 million units before the end of 2001. Talk about a game changer!");
+    }
+
+
+}
